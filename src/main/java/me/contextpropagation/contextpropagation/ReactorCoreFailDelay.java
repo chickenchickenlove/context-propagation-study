@@ -53,7 +53,7 @@ public class ReactorCoreFailDelay {
         // delayElement()가 호출되면서, 뒤의 두 addProduct(), notifyShop()은 다른 쓰레드에서 실행됨.
         // 그런데 쓰레드간 상태를 전달하지 않았기 때문에 correlation ID는 전파되지 않음.
         return Mono.just("test-product")
-                   .delayElement(Duration.ofMillis(10))
+                   .delayElement(Duration.ofMillis(10)) // 다른 쓰레드풀에서 처리됨.
                    .flatMap(product ->
                                     Flux.concat(
                                                 addProduct(product),
